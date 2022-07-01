@@ -24,6 +24,9 @@ jobs:
           wget https://github.com/vlang/v/releases/download/0.3/v_linux.zip
           sha1sum v_linux.zip
           unzip v_linux.zip
+          
+      - name: valgrind
+        run: |
           cd v
           ./v examples/hello_world.v
           valgrind --leak-check=yes examples/hello_world
