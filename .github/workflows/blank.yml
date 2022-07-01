@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential wget unzip valgrind
+          wget https://github.com/vlang/v/releases/download/0.3/v_linux.zip
+          sha1sum v_linux.zip
+          unzip v_linux.zip
+          cd v
+          ./v examples/hello_world.v
+          valgrind --leak-check=yes examples/hello_world
